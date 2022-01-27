@@ -1,0 +1,52 @@
+6<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://unpkg.com/vue"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="store"> 
+            {{product}} 
+            <br>
+            <hr>
+            {{users}}
+        </div>
+    </div>
+    <script>
+        let store= new Vue({
+            el: "#store",
+            data:{
+                product:[],
+                users:[]
+            },
+            created: function(){
+                console.log("requesting data from server")
+                fetch("http://localhost:2900/courses").then(
+                    function(response){
+                        response.json().then(
+                            function(json){
+                                store.product=json;
+                                console.log(json);
+                            
+                            }
+                        )
+                    }
+                ),
+                fetch("http://localhost:2900/users").then(
+                    function(response){
+                        response.json().then(
+                            function(json){
+                                store.users=json;
+                                console.log(json);
+                            }
+                        )
+                    }
+                )
+          }
+        })
+    </script>
+</body>
+</html>
